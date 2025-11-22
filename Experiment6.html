@@ -1,41 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Experiment 6 - File Handling</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background-color: #f5f5f5; padding: 20px; }
-        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 40px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-radius: 8px; }
-        .breadcrumb { margin-bottom: 20px; font-size:0.9em; }
-        .breadcrumb a { color: #3498db; text-decoration: none; }
-        .breadcrumb a:hover { text-decoration: underline; }
-        header { border-bottom: 3px solid #2c3e50; padding-bottom: 20px; margin-bottom: 30px; }
-       h1 { color: #2c3e50; font-size: 2.2em; margin-bottom: 10px; }
-        h2 { color: #2980b9; font-size: 1.5em; margin-top: 40px; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #ecf0f1; }
-        .code-container { position: relative; margin: 20px 0; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 6px; overflow: hidden; }
-        .code-header { background: #2c3e50; color: white; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; font-size: 0.9em; }
-        .code-filename { font-weight: 500; }
-        .copy-btn { background: #3498db; color: white; border: none; padding: 5px 15px; border-radius: 4px; cursor: pointer; font-size: 0.85em; transition: background 0.3s; }
-        .copy-btn:hover { background: #2980b9; }
-        .copy-btn.copied { background: #27ae60; }
-        pre { margin: 0; padding: 20px; overflow-x: auto; background: #282c34; color: #abb2bf; font-family: 'Consolas', 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.5; }
-        footer { margin-top: 50px; padding-top: 20px; border-top: 1px solid #ddd; text-align: center; color: #7f8c8d; font-size: 0.9em; }
-        .back-to-top { position: fixed; bottom: 30px; right: 30px; background: #3498db; color: white; width: 50px; height: 50px; border-radius: 50%; border: none; cursor: pointer; font-size: 1.2em; box-shadow: 0 2px 10px rgba(0,0,0,0.2); display: none; }
-        .back-to-top:hover { background: #2980b9; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .breadcrumb {
+            margin-bottom: 20px;
+            font-size: 0.9em;
+        }
+
+        .breadcrumb a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        header {
+            border-bottom: 3px solid #2c3e50;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #2980b9;
+            font-size: 1.5em;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        .code-container {
+            position: relative;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .code-header {
+            background: #2c3e50;
+            color: white;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9em;
+        }
+
+        .code-filename {
+            font-weight: 500;
+        }
+
+        .copy-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: background 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #2980b9;
+        }
+
+        .copy-btn.copied {
+            background: #27ae60;
+        }
+
+        pre {
+            margin: 0;
+            padding: 20px;
+            overflow-x: auto;
+            background: #282c34;
+            color: #abb2bf;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #3498db;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2em;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+
+        .back-to-top:hover {
+            background: #2980b9;
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="breadcrumb"><a href="index.html">← Back to Index</a></div>
         <header>
             <h1>Experiment 6 - File Handling</h1>
+            <p>Working with Files in Java - File Class, FileWriter, and FileReader</p>
         </header>
         <main>
-            <h2>1. Q-1</h2>
+            <h2>1. File Class Methods</h2>
+            <p>Create a file "first.txt" using the File class and implement various methods: createNewFile(), getName(),
+                getAbsolutePath(), canRead(), canWrite(), length(), isFile(), isDirectory(), exists().</p>
             <div class="code-container">
-                <div class="code-header"><span class="code-filename">FileQ1.java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                <div class="code-header"><span class="code-filename">FileQ1.java</span><button class="copy-btn"
+                        onclick="copyCode(this)">Copy</button></div>
                 <pre><code>// FileQ1.java
 import java.io.File;
 import java.io.IOException;
@@ -60,9 +186,12 @@ public class FileQ1 {
     }
 }</code></pre>
             </div>
-            <h2>2. Q-2</h2>
+
+            <h2>2. File Rename Operation</h2>
+            <p>Create file "second.txt" using File class and change the file name using renameTo() method.</p>
             <div class="code-container">
-                <div class="code-header"><span class="code-filename">FileQ2_Rename.java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                <div class="code-header"><span class="code-filename">FileQ2_Rename.java</span><button class="copy-btn"
+                        onclick="copyCode(this)">Copy</button></div>
                 <pre><code>// FileQ2_Rename.java
 import java.io.File;
 
@@ -82,9 +211,12 @@ public class FileQ2_Rename {
     }
 }</code></pre>
             </div>
-            <h2>3. Q-3</h2>
+
+            <h2>3. File Delete Operation</h2>
+            <p>Modify Question 2 and perform delete operation using delete() method.</p>
             <div class="code-container">
-                <div class="code-header"><span class="code-filename">FileQ3_Delete.java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                <div class="code-header"><span class="code-filename">FileQ3_Delete.java</span><button class="copy-btn"
+                        onclick="copyCode(this)">Copy</button></div>
                 <pre><code>// FileQ3_Delete.java
 import java.io.File;
 
@@ -101,29 +233,13 @@ public class FileQ3_Delete {
     }
 }</code></pre>
             </div>
-            <h2>4. Q-4</h2>
-            <div class="code-container">
-                <div class="code-header"><span class="code-filename">Program4.java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-                <pre><code>import java.io.File;
 
-class File
-{
-    public static void main(String args[])
-    {
-        try
-        {
-            File f = new File("D\File\");
-        }
-        catch()
-        {
-            System.out.println(i);
-        }
-    }
-}</code></pre>
-            </div>
-            <h2>5. Q-5</h2>
+            <h2>4. Corrected File Example</h2>
+            <p>Find and correct the errors in the given code. Issues include improper path escaping and exception
+                handling.</p>
             <div class="code-container">
-                <div class="code-header"><span class="code-filename">FileExample_Corrected.java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                <div class="code-header"><span class="code-filename">FileExample_Corrected.java</span><button
+                        class="copy-btn" onclick="copyCode(this)">Copy</button></div>
                 <pre><code>// FileExample_Corrected.java
 import java.io.File;
 import java.io.IOException;
@@ -132,7 +248,7 @@ public class FileExample_Corrected {
     public static void main(String args[]) {
         try {
             // use double backslashes for Windows paths
-            File f = new File("D:\\RKU\\First.java");
+            File f = new File("D:\\\\RKU\\\\First.java");
             boolean created = false;
             try {
                 // createNewFile will return true if file did not exist and was created
@@ -157,9 +273,12 @@ public class FileExample_Corrected {
     }
 }</code></pre>
             </div>
-            <h2>6. Q-6</h2>
+
+            <h2>5. FileWriter Example</h2>
+            <p>Implement FileWriter class with try-catch block to write text to a file.</p>
             <div class="code-container">
-                <div class="code-header"><span class="code-filename">FileWriterExample.java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                <div class="code-header"><span class="code-filename">FileWriterExample.java</span><button
+                        class="copy-btn" onclick="copyCode(this)">Copy</button></div>
                 <pre><code>// FileWriterExample.java
 import java.io.FileWriter;
 import java.io.IOException;
@@ -167,8 +286,8 @@ import java.io.IOException;
 public class FileWriterExample {
     public static void main(String[] args) {
         try (FileWriter fw = new FileWriter("fw_demo.txt")) {
-            fw.write("This is a sample line written by FileWriter.\n");
-            fw.write("Second line.\n");
+            fw.write("This is a sample line written by FileWriter.\\n");
+            fw.write("Second line.\\n");
             System.out.println("FileWriter: Write successful.");
         } catch (IOException e) {
             System.out.println("FileWriter error: " + e.getMessage());
@@ -177,8 +296,33 @@ public class FileWriterExample {
 }</code></pre>
             </div>
 
+            <h2>6. FileReader and BufferedReader Example</h2>
+            <p>Implement FileReader and BufferedReader classes to read from a file line by line.</p>
+            <div class="code-container">
+                <div class="code-header"><span class="code-filename">FileReaderBufferedReaderExample.java</span><button
+                        class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                <pre><code>// FileReaderBufferedReaderExample.java
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class FileReaderBufferedReaderExample {
+    public static void main(String[] args) {
+        try (BufferedReader br = new BufferedReader(new FileReader("fw_demo.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            System.out.println("Read error: " + e.getMessage());
+        }
+    }
+}</code></pre>
+            </div>
         </main>
-        <footer><p><a href="index.html">← Back to Index</a> | Experiment 6 - File Handling</p></footer>
+        <footer>
+            <p><a href="index.html">← Back to Index</a> | Experiment 6 - File Handling | 6 Programs</p>
+        </footer>
     </div>
     <button class="back-to-top" onclick="scrollToTop()" id="backToTop">↑</button>
     <script>
@@ -197,7 +341,7 @@ public class FileWriterExample {
                 alert('Failed to copy code.');
             });
         }
-        window.onscroll = function() {
+        window.onscroll = function () {
             const button = document.getElementById('backToTop');
             if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
                 button.style.display = 'block';
@@ -206,8 +350,9 @@ public class FileWriterExample {
             }
         };
         function scrollToTop() {
-            window.scrollTo({top: 0, behavior: 'smooth'});
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
 </body>
+
 </html>
