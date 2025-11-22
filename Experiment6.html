@@ -64,6 +64,13 @@
             border-bottom: 2px solid #ecf0f1;
         }
 
+        h3 {
+            color: #34495e;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
         .code-container {
             position: relative;
             margin: 20px 0;
@@ -81,6 +88,18 @@
             justify-content: space-between;
             align-items: center;
             font-size: 0.9em;
+        }
+
+        .code-header.problem {
+            background: #e74c3c;
+        }
+
+        .code-header.solution {
+            background: #27ae60;
+        }
+
+        .code-header.output {
+            background: #f39c12;
         }
 
         .code-filename {
@@ -156,11 +175,11 @@
             <p>Working with Files in Java - File Class, FileWriter, and FileReader</p>
         </header>
         <main>
-            <h2>1. File Class Methods</h2>
+            <h2>Q-1: File Class Methods</h2>
             <p>Create a file "first.txt" using the File class and implement various methods: createNewFile(), getName(),
                 getAbsolutePath(), canRead(), canWrite(), length(), isFile(), isDirectory(), exists().</p>
             <div class="code-container">
-                <div class="code-header"><span class="code-filename">FileQ1.java</span><button class="copy-btn"
+                <div class="code-header solution"><span class="code-filename">FileQ1.java</span><button class="copy-btn"
                         onclick="copyCode(this)">Copy</button></div>
                 <pre><code>// FileQ1.java
 import java.io.File;
@@ -187,11 +206,11 @@ public class FileQ1 {
 }</code></pre>
             </div>
 
-            <h2>2. File Rename Operation</h2>
+            <h2>Q-2: File Rename Operation</h2>
             <p>Create file "second.txt" using File class and change the file name using renameTo() method.</p>
             <div class="code-container">
-                <div class="code-header"><span class="code-filename">FileQ2_Rename.java</span><button class="copy-btn"
-                        onclick="copyCode(this)">Copy</button></div>
+                <div class="code-header solution"><span class="code-filename">FileQ2_Rename.java</span><button
+                        class="copy-btn" onclick="copyCode(this)">Copy</button></div>
                 <pre><code>// FileQ2_Rename.java
 import java.io.File;
 
@@ -212,11 +231,11 @@ public class FileQ2_Rename {
 }</code></pre>
             </div>
 
-            <h2>3. File Delete Operation</h2>
+            <h2>Q-3: File Delete Operation</h2>
             <p>Modify Question 2 and perform delete operation using delete() method.</p>
             <div class="code-container">
-                <div class="code-header"><span class="code-filename">FileQ3_Delete.java</span><button class="copy-btn"
-                        onclick="copyCode(this)">Copy</button></div>
+                <div class="code-header solution"><span class="code-filename">FileQ3_Delete.java</span><button
+                        class="copy-btn" onclick="copyCode(this)">Copy</button></div>
                 <pre><code>// FileQ3_Delete.java
 import java.io.File;
 
@@ -234,11 +253,49 @@ public class FileQ3_Delete {
 }</code></pre>
             </div>
 
-            <h2>4. Corrected File Example</h2>
-            <p>Find and correct the errors in the given code. Issues include improper path escaping and exception
-                handling.</p>
+            <h2>Q-4: Find and Correct File Errors</h2>
+            <p>Find the error in the given code, complete it, and correct it.</p>
+
+            <h3>Given Code (with errors):</h3>
             <div class="code-container">
-                <div class="code-header"><span class="code-filename">FileExample_Corrected.java</span><button
+                <div class="code-header problem"><span class="code-filename">File.java (incorrect)</span><button
+                        class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                <pre><code>import java.io.File;
+
+class File
+{
+    public static void main(String args[])
+    {
+        try
+        {
+            File f = new File("D\\File\\");
+        }
+        catch()
+        {
+            System.out.println(i);
+        }
+    }
+}</code></pre>
+            </div>
+
+            <h3>Expected Output:</h3>
+            <div class="code-container">
+                <div class="code-header output"><span class="code-filename">Expected Output</span><button
+                        class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                <pre><code>File Created:false
+File name is:File1.txt
+File path is D:\RKU\First.java
+File read operation:true
+File write operation:true
+File length in bytes:0
+is File:true
+is directory:false
+is exists:true</code></pre>
+            </div>
+
+            <h3>Corrected Code:</h3>
+            <div class="code-container">
+                <div class="code-header solution"><span class="code-filename">FileExample_Corrected.java</span><button
                         class="copy-btn" onclick="copyCode(this)">Copy</button></div>
                 <pre><code>// FileExample_Corrected.java
 import java.io.File;
@@ -274,10 +331,10 @@ public class FileExample_Corrected {
 }</code></pre>
             </div>
 
-            <h2>5. FileWriter Example</h2>
+            <h2>Q-5: FileWriter Example</h2>
             <p>Implement FileWriter class with try-catch block to write text to a file.</p>
             <div class="code-container">
-                <div class="code-header"><span class="code-filename">FileWriterExample.java</span><button
+                <div class="code-header solution"><span class="code-filename">FileWriterExample.java</span><button
                         class="copy-btn" onclick="copyCode(this)">Copy</button></div>
                 <pre><code>// FileWriterExample.java
 import java.io.FileWriter;
@@ -296,11 +353,12 @@ public class FileWriterExample {
 }</code></pre>
             </div>
 
-            <h2>6. FileReader and BufferedReader Example</h2>
+            <h2>Q-6: FileReader and BufferedReader Example</h2>
             <p>Implement FileReader and BufferedReader classes to read from a file line by line.</p>
             <div class="code-container">
-                <div class="code-header"><span class="code-filename">FileReaderBufferedReaderExample.java</span><button
-                        class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                <div class="code-header solution"><span
+                        class="code-filename">FileReaderBufferedReaderExample.java</span><button class="copy-btn"
+                        onclick="copyCode(this)">Copy</button></div>
                 <pre><code>// FileReaderBufferedReaderExample.java
 import java.io.BufferedReader;
 import java.io.FileReader;

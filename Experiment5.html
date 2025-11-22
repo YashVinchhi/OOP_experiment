@@ -64,6 +64,13 @@
             border-bottom: 2px solid #ecf0f1;
         }
 
+        h3 {
+            color: #34495e;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
         .code-container {
             position: relative;
             margin: 20px 0;
@@ -81,6 +88,14 @@
             justify-content: space-between;
             align-items: center;
             font-size: 0.9em;
+        }
+
+        .code-header.problem {
+            background: #e74c3c;
+        }
+
+        .code-header.solution {
+            background: #27ae60;
         }
 
         .code-filename {
@@ -156,11 +171,27 @@
             <p>Mastering Try-Catch-Finally, Nested Exceptions, and Custom Exceptions</p>
         </header>
         <main>
-            <h2>1. ArithmeticException - Division by Zero</h2>
-            <p>Find the type of exception in the given code and rewrite it to handle the exception using try-catch
-                block.</p>
+            <h2>Q-1: ArithmeticException - Division by Zero</h2>
+            <p>Find the type of exception that occurs in the given code and rewrite it to handle the exception using
+                try-catch block.</p>
+
+            <h3>Given Code (Problematic):</h3>
             <div class="code-container">
-                <div class="code-header"><span class="code-filename">ExceptionDemo1_Fixed.java</span><button
+                <div class="code-header problem"><span class="code-filename">ExceptionDemo1.java (with
+                        error)</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                <pre><code>public class ExceptionDemo1
+{  
+    public static void main(String args[])
+    {  
+        int number = 50/0;  
+        System.out.println("number=" + number);  
+    }  
+}</code></pre>
+            </div>
+
+            <h3>Corrected Code:</h3>
+            <div class="code-container">
+                <div class="code-header solution"><span class="code-filename">ExceptionDemo1_Fixed.java</span><button
                         class="copy-btn" onclick="copyCode(this)">Copy</button></div>
                 <pre><code>// ExceptionDemo1_Fixed.java
 public class ExceptionDemo1_Fixed {
@@ -175,11 +206,11 @@ public class ExceptionDemo1_Fixed {
 }</code></pre>
             </div>
 
-            <h2>2. ArrayIndexOutOfBoundsException</h2>
+            <h2>Q-2: ArrayIndexOutOfBoundsException</h2>
             <p>Create an array of size 5, try to access element at index 10, identify and handle the exception.</p>
             <div class="code-container">
-                <div class="code-header"><span class="code-filename">ArrayAccessDemo.java</span><button class="copy-btn"
-                        onclick="copyCode(this)">Copy</button></div>
+                <div class="code-header solution"><span class="code-filename">ArrayAccessDemo.java</span><button
+                        class="copy-btn" onclick="copyCode(this)">Copy</button></div>
                 <pre><code>// ArrayAccessDemo.java
 public class ArrayAccessDemo {
     public static void main(String[] args) {
@@ -194,11 +225,31 @@ public class ArrayAccessDemo {
 }</code></pre>
             </div>
 
-            <h2>3. Nested Try-Catch with Finally</h2>
+            <h2>Q-3: Nested Try-Catch with Finally</h2>
             <p>Find the type of exception in the given code and rewrite using nested try-catch and finally block.</p>
+
+            <h3>Given Code (Problematic):</h3>
             <div class="code-container">
-                <div class="code-header"><span class="code-filename">NestedTryDemo.java</span><button class="copy-btn"
-                        onclick="copyCode(this)">Copy</button></div>
+                <div class="code-header problem"><span class="code-filename">nestedtry.java (with errors)</span><button
+                        class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                <pre><code>public class nestedtry
+{
+    public static void main(String args[])
+    {
+        int b = 30/0;
+        System.out.println("going to divide by 0");
+
+        int a[] = new int[5];
+        a[5] = 10;
+        System.out.println(a[5]);
+    }
+}</code></pre>
+            </div>
+
+            <h3>Corrected Code:</h3>
+            <div class="code-container">
+                <div class="code-header solution"><span class="code-filename">NestedTryDemo.java</span><button
+                        class="copy-btn" onclick="copyCode(this)">Copy</button></div>
                 <pre><code>// NestedTryDemo.java
 public class NestedTryDemo {
     public static void main(String[] args) {
@@ -226,7 +277,7 @@ public class NestedTryDemo {
 }</code></pre>
             </div>
 
-            <h2>4. Final Keyword - Variable, Method, and Class</h2>
+            <h2>Q-4: Final Keyword - Variable, Method, and Class</h2>
             <p>Demonstrate the usage of final keyword with variable, method, and class. Explain the differences.</p>
             <div class="code-container">
                 <div class="code-header"><span class="code-filename">FinalUsageDemo.java</span><button class="copy-btn"
@@ -272,7 +323,7 @@ Differences summary:
 */</code></pre>
             </div>
 
-            <h2>5. Finally Block Usage</h2>
+            <h2>Q-5: Finally Block Usage</h2>
             <p>Demonstrate the usage of finally block in Java - it always executes regardless of exception.</p>
             <div class="code-container">
                 <div class="code-header"><span class="code-filename">FinallyDemo.java</span><button class="copy-btn"
@@ -298,7 +349,7 @@ public class FinallyDemo {
 }</code></pre>
             </div>
 
-            <h2>6. User-Defined Exception</h2>
+            <h2>Q-6: User-Defined Exception</h2>
             <p>Create a user-defined exception named MyException. Throw it using a constructor and override toString()
                 method.</p>
             <div class="code-container">
