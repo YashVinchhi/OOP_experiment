@@ -1,0 +1,2 @@
+This is a sample line written by FileWriter.
+Second line.

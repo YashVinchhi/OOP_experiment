@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiment 7 - Multithreading</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background-color: #f5f5f5; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 40px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-radius: 8px; }
+        .breadcrumb { margin-bottom: 20px; font-size:0.9em; }
+        .breadcrumb a { color: #3498db; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        header { border-bottom: 3px solid #2c3e50; padding-bottom: 20px; margin-bottom: 30px; }
+       h1 { color: #2c3e50; font-size: 2.2em; margin-bottom: 10px; }
+        h2 { color: #2980b9; font-size: 1.5em; margin-top: 40px; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #ecf0f1; }
+        .code-container { position: relative; margin: 20px 0; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 6px; overflow: hidden; }
+        .code-header { background: #2c3e50; color: white; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; font-size: 0.9em; }
+        .code-filename { font-weight: 500; }
+        .copy-btn { background: #3498db; color: white; border: none; padding: 5px 15px; border-radius: 4px; cursor: pointer; font-size: 0.85em; transition: background 0.3s; }
+        .copy-btn:hover { background: #2980b9; }
+        .copy-btn.copied { background: #27ae60; }
+        pre { margin: 0; padding: 20px; overflow-x: auto; background: #282c34; color: #abb2bf; font-family: 'Consolas', 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.5; }
+        footer { margin-top: 50px; padding-top: 20px; border-top: 1px solid #ddd; text-align: center; color: #7f8c8d; font-size: 0.9em; }
+        .back-to-top { position: fixed; bottom: 30px; right: 30px; background: #3498db; color: white; width: 50px; height: 50px; border-radius: 50%; border: none; cursor: pointer; font-size: 1.2em; box-shadow: 0 2px 10px rgba(0,0,0,0.2); display: none; }
+        .back-to-top:hover { background: #2980b9; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="breadcrumb"><a href="index.html">← Back to Index</a></div>
+        <header>
+            <h1>Experiment 7 - Multithreading</h1>
+        </header>
+        <main>
+            <h2>1. 1. Write a program to implement the following:</h2>
+            <div class="code-container">
+                <div class="code-header"><span class="code-filename">ThreadDemo.java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                <pre><code>// ThreadDemo.java
+class ThreadDemo extends Thread {
+	public ThreadDemo(String name) {
+		super(name);
+	}
+
+	@Override
+	public void run() {
+		try {
+			// demonstrate the thread doing work and waiting (sleep)
+			System.out.println("[run] Thread " + getName() + " started.");
+			Thread.sleep(1000); // make the thread wait for 1 second
+			System.out.println("[run] Thread " + getName() + " finished work.");
+		} catch (InterruptedException e) {
+			System.out.println("[run] Thread " + getName() + " interrupted.");
+		}
+	}
+
+	public static void main(String[] args) throws InterruptedException {
+		ThreadDemo t = new ThreadDemo("Worker-1");
+
+		// (i) Print the name of a thread
+		System.out.println("Name before start: " + t.getName());
+
+		// (ii) Change the name of a thread
+		t.setName("MyWorkerThread");
+		System.out.println("Name after setName: " + t.getName());
+
+		// Start the thread
+		t.start();
+
+		// (iii) Make the (main) thread wait until t finishes using join()
+		System.out.println("Main thread waiting for child thread to finish...");
+		t.join();
+
+		// (iv) Display details of a thread
+		System.out.println("Details: id=" + t.getId() + ", name=" + t.getName() + ", alive=" + t.isAlive());
+	}
+}</code></pre>
+            </div>
+            <h2>2. 2. Write a Java program that implements Thread class methods.</h2>
+            <div class="code-container">
+                <div class="code-header"><span class="code-filename">ThreadMethodsDemo.java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                <pre><code>// ThreadMethodsDemo.java
+class ThreadMethodsDemo extends Thread {
+	public ThreadMethodsDemo(String name) {
+		super(name);
+	}
+
+	@Override
+	public void run() {
+		try {
+			for (int i = 1; i <= 3; i++) {
+				System.out.println(getName() + " running: step " + i);
+				Thread.sleep(500); // sleep demonstrates timed wait
+			}
+		} catch (InterruptedException e) {
+			System.out.println(getName() + " interrupted");
+		}
+	}
+
+	public static void main(String[] args) throws InterruptedException {
+		ThreadMethodsDemo t = new ThreadMethodsDemo("DemoThread");
+
+		// set and get name
+		System.out.println("Name before: " + t.getName());
+		t.setName("DemoThread-Renamed");
+		System.out.println("Name after: " + t.getName());
+
+		// priority
+		System.out.println("Priority before: " + t.getPriority());
+		t.setPriority(Thread.MAX_PRIORITY);
+		System.out.println("Priority after: " + t.getPriority());
+
+		// start() will cause the JVM to call run() in a new thread
+		t.start();
+
+		// sleep in main to show main thread pausing
+		System.out.println("Main sleeping for 1 second...");
+		Thread.sleep(1000);
+
+		// show that the thread may still be alive
+		System.out.println("Is thread alive? " + t.isAlive());
+
+		// wait for completion
+		t.join();
+		System.out.println("ThreadMethodsDemo finished");
+	}
+}</code></pre>
+            </div>
+            <h2>3. 3. Implement a multithread application containing three threads:</h2>
+            <div class="code-container">
+                <div class="code-header"><span class="code-filename">MultiThreadRandom.java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                <pre><code>// MultiThreadRandom.java
+import java.util.Random;
+
+class SharedData {
+	int number;
+	boolean available = false; // indicates producer has produced
+	boolean processed = false; // indicates consumer processed current number
+	boolean finished = false;  // to signal termination
+}
+
+class Producer extends Thread {
+	private final SharedData data;
+	private final int iterations;
+	private final Random rnd = new Random();
+
+	public Producer(SharedData data, int iterations) {
+		this.data = data;
+		this.iterations = iterations;
+	}
+
+	@Override
+	public void run() {
+		try {
+			for (int i = 0; i < iterations; i++) {
+				int n = rnd.nextInt(100) + 1; // 1..100
+				synchronized (data) {
+					// wait until previous number is consumed
+					while (data.available && !data.processed) {
+						data.wait();
+					}
+					data.number = n;
+					data.available = true;
+					data.processed = false;
+					System.out.println("Producer generated: " + n);
+					data.notifyAll();
+				}
+				Thread.sleep(1000); // generate every 1 second
+			}
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+		} finally {
+			synchronized (data) {
+				data.finished = true;
+				data.notifyAll();
+			}
+		}
+	}
+}
+
+class EvenConsumer extends Thread {
+	private final SharedData data;
+
+	public EvenConsumer(SharedData data) { this.data = data; }
+
+	@Override
+	public void run() {
+		try {
+			while (true) {
+				synchronized (data) {
+					while (!data.available && !data.finished) data.wait();
+					if (data.finished && !data.available) break;
+					if (data.available && (data.number % 2 == 0) && !data.processed) {
+						int val = data.number;
+						System.out.println("EvenConsumer: square of " + val + " = " + (val * val));
+						data.processed = true;
+						data.available = false;
+						data.notifyAll();
+					} else if (data.finished) {
+						break;
+					} else {
+						// not the consumer for this number; wait for next notify
+						data.wait();
+					}
+				}
+			}
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+		}
+	}
+}
+
+class OddConsumer extends Thread {
+	private final SharedData data;
+
+	public OddConsumer(SharedData data) { this.data = data; }
+
+	@Override
+	public void run() {
+		try {
+			while (true) {
+				synchronized (data) {
+					while (!data.available && !data.finished) data.wait();
+					if (data.finished && !data.available) break;
+					if (data.available && (data.number % 2 != 0) && !data.processed) {
+						int val = data.number;
+						System.out.println("OddConsumer: cube of " + val + " = " + (val * val * val));
+						data.processed = true;
+						data.available = false;
+						data.notifyAll();
+					} else if (data.finished) {
+						break;
+					} else {
+						data.wait();
+					}
+				}
+			}
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+		}
+	}
+}
+
+class MultiThreadRandom {
+	public static void main(String[] args) throws InterruptedException {
+		SharedData data = new SharedData();
+		Producer p = new Producer(data, 10); // produce 10 numbers
+		EvenConsumer cEven = new EvenConsumer(data);
+		OddConsumer cOdd = new OddConsumer(data);
+
+		// start all threads
+		cEven.start();
+		cOdd.start();
+		p.start();
+
+		// wait for producer to finish
+		p.join();
+
+		// ensure consumers exit
+		synchronized (data) { data.notifyAll(); }
+
+		cEven.join();
+		cOdd.join();
+
+		System.out.println("All threads finished.");
+	}
+}</code></pre>
+            </div>
+
+        </main>
+        <footer><p><a href="index.html">← Back to Index</a> | Experiment 7 - Multithreading</p></footer>
+    </div>
+    <button class="back-to-top" onclick="scrollToTop()" id="backToTop">↑</button>
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-container').querySelector('code');
+            const text = codeBlock.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                alert('Failed to copy code.');
+            });
+        }
+        window.onscroll = function() {
+            const button = document.getElementById('backToTop');
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                button.style.display = 'block';
+            } else {
+                button.style.display = 'none';
+            }
+        };
+        function scrollToTop() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
+</body>
+</html>

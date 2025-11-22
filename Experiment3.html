@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiment 3 - Inheritance & Keywords</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .breadcrumb {
+            margin-bottom: 20px;
+            font-size: 0.9em;
+        }
+
+        .breadcrumb a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        header {
+            border-bottom: 3px solid #2c3e50;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #2980b9;
+            font-size: 1.5em;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        .code-container {
+            position: relative;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .code-header {
+            background: #2c3e50;
+            color: white;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9em;
+        }
+
+        .code-filename {
+            font-weight: 500;
+        }
+
+        .copy-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: background 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #2980b9;
+        }
+
+        .copy-btn.copied {
+            background: #27ae60;
+        }
+
+        pre {
+            margin: 0;
+            padding: 20px;
+            overflow-x: auto;
+            background: #282c34;
+            color: #abb2bf;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #3498db;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2em;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+
+        .back-to-top:hover {
+            background: #2980b9;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="breadcrumb"><a href="index.html">← Back to Index</a></div>
+        <header>
+            <h1>Experiment 3 - Inheritance & Keywords</h1>
+            <p>Inheritance hierarchies, method overriding, and Java keywords (static, final, this)</p>
+        </header>
+        <main>
+            <h2>1. Basic Inheritance - Animal and Dog</h2>
+            <p>Demonstrate inheritance where Dog inherits from Animal class.</p>
+            <div class="code-container">
+                <div class="code-header"><span class="code-filename">AnimalDogDemo.java</span><button class="copy-btn"
+                        onclick="copyCode(this)">Copy</button></div>
+                <pre><code>// AnimalDogDemo.java
+class Animal {
+    String name;
+
+    public void eat() {
+        System.out.println(name + " is eating.");
+    }
+}
+
+class Dog extends Animal {
+    public void display() {
+        System.out.println("Dog name: " + name);
+        eat();
+    }
+
+    public static void main(String[] args) {
+        Dog d = new Dog();
+        d.name = "Buddy"; // inherit name from Animal
+        d.display();
+    }
+}</code></pre>
+            </div>
+            <h2>2. Method Overriding - Vehicle and Bike</h2>
+            <p>Demonstrate method overriding with Vehicle and Bike classes.</p>
+            <div class="code-container">
+                <div class="code-header"><span class="code-filename">VehicleBikeDemo.java</span><button class="copy-btn"
+                        onclick="copyCode(this)">Copy</button></div>
+                <pre><code>// VehicleBikeDemo.java
+class Vehicle {
+    public void run() {
+        System.out.println("Vehicle is running");
+    }
+}
+
+class Bike extends Vehicle {
+    @Override
+    public void run() {
+        System.out.println("Bike is running safely with speed 60 km/h");
+    }
+
+    public static void main(String[] args) {
+        Vehicle v = new Vehicle();
+        v.run();
+
+        Bike b = new Bike();
+        b.run(); // method overriding demonstration
+    }
+}</code></pre>
+            </div>
+            <h2>3. Multilevel Inheritance - Car → Maruti → Maruti800</h2>
+            <p>Demonstrate multilevel inheritance with three levels of classes.</p>
+            <div class="code-container">
+                <div class="code-header"><span class="code-filename">MarutiHierarchyDemo.java</span><button
+                        class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                <pre><code>// MarutiHierarchyDemo.java
+class Car {
+    String fuel;
+
+    public Car(String fuel) {
+        this.fuel = fuel;
+    }
+
+    public void Speed() {
+        System.out.println("Car speed: 100 km/h");
+    }
+}
+
+class Maruti extends Car {
+    String geartype;
+
+    public Maruti(String fuel, String geartype) {
+        super(fuel);
+        this.geartype = geartype;
+    }
+
+    public void gear() {
+        System.out.println("Gear type: " + geartype);
+    }
+}
+
+class Maruti800 extends Maruti {
+    String modelname;
+
+    public Maruti800(String fuel, String geartype, String modelname) {
+        super(fuel, geartype);
+        this.modelname = modelname;
+    }
+
+    public void getModel() {
+        System.out.println("Model name: " + modelname);
+    }
+
+    public static void main(String[] args) {
+        Maruti800 m = new Maruti800("Petrol", "Manual", "Maruti800-STD");
+        m.Speed();
+        System.out.println("Fuel: " + m.fuel);
+        m.gear();
+        System.out.println("Gear type: " + m.geartype);
+        m.getModel();
+        System.out.println("Model: " + m.modelname);
+    }
+}</code></pre>
+            </div>
+            <h2>4. Hierarchical Inheritance - Bank Interest Rates</h2>
+            <p>Demonstrate hierarchical inheritance with multiple banks extending Bank class.</p>
+            <div class="code-container">
+                <div class="code-header"><span class="code-filename">BankInheritanceDemo.java</span><button
+                        class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                <pre><code>// BankInheritanceDemo.java
+class Bank {
+    public double GetInterestRate() {
+        return 0.0;
+    }
+}
+
+class ICICI extends Bank {
+    @Override
+    public double GetInterestRate() {
+        return 7.5;
+    }
+}
+
+class SBI extends Bank {
+    @Override
+    public double GetInterestRate() {
+        return 6.8;
+    }
+}
+
+class BOB extends Bank {
+    @Override
+    public double GetInterestRate() {
+        return 7.0;
+    }
+}
+
+public class BankInheritanceDemo {
+    public static void main(String[] args) {
+        Bank b1 = new ICICI();
+        Bank b2 = new SBI();
+        Bank b3 = new BOB();
+
+        System.out.println("ICICI Interest Rate: " + b1.GetInterestRate() + "%");
+        System.out.println("SBI Interest Rate: " + b2.GetInterestRate() + "%");
+        System.out.println("BOB Interest Rate: " + b3.GetInterestRate() + "%");
+    }
+}</code></pre>
+            </div>
+            <h2>5. Static Methods and Variables</h2>
+            <p>Demonstrate static methods getName(), SetName(), and ShowDetails().</p>
+            <div class="code-container">
+                <div class="code-header"><span class="code-filename">StudentStaticDemo.java</span><button
+                        class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                <pre><code>// StudentStaticDemo.java
+import java.util.Scanner;
+
+public class StudentStaticDemo {
+    static String name;
+    static String rollno;
+    static String branch;
+    static String sem;
+    static String college;
+
+    public static void getName() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter name: ");
+        name = sc.nextLine();
+    }
+
+    public static void SetName(String newName, String newRoll, String newBranch, String newSem, String newCollege) {
+        name = newName;
+        rollno = newRoll;
+        branch = newBranch;
+        sem = newSem;
+        college = newCollege;
+    }
+
+    public static void ShowDetails() {
+        System.out.println("Name: " + name);
+        System.out.println("Roll No: " + rollno);
+        System.out.println("Branch: " + branch);
+        System.out.println("Semester: " + sem);
+        System.out.println("College: " + college);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter initial name: ");
+        name = sc.nextLine();
+        System.out.print("Enter rollno: ");
+        rollno = sc.nextLine();
+        System.out.print("Enter branch: ");
+        branch = sc.nextLine();
+        System.out.print("Enter sem: ");
+        sem = sc.nextLine();
+        System.out.print("Enter college: ");
+        college = sc.nextLine();
+
+        System.out.println("\nInitial details:");
+        ShowDetails();
+
+        System.out.print("\nEnter new name to set: ");
+        String newName = sc.nextLine();
+        SetName(newName, rollno, branch, sem, college);
+
+        System.out.println("\nUpdated details:");
+        ShowDetails();
+        sc.close();
+    }
+}</code></pre>
+            </div>
+            <h2>6. Final Variable - Circle Area</h2>
+            <p>Design Circle class with radius and pie declared as final variable.</p>
+            <div class="code-container">
+                <div class="code-header"><span class="code-filename">CircleAreaDemo.java</span><button class="copy-btn"
+                        onclick="copyCode(this)">Copy</button></div>
+                <pre><code>// CircleAreaDemo.java
+class Circle {
+    double radius;
+    final double pie = 3.141592653589793; // final variable
+
+    public Circle(double r) {
+        this.radius = r;
+    }
+
+    public double area() {
+        return pie * radius * radius;
+    }
+
+    public static void main(String[] args) {
+        Circle c = new Circle(2.5);
+        System.out.printf("Area of circle with radius %.2f = %.4f\n", c.radius, c.area());
+    }
+}</code></pre>
+            </div>
+            <h2>7. This Keyword Usage</h2>
+            <p>Demonstrate usage of the this keyword in Java.</p>
+            <div class="code-container">
+                <div class="code-header"><span class="code-filename">ThisKeywordDemo.java</span><button class="copy-btn"
+                        onclick="copyCode(this)">Copy</button></div>
+                <pre><code>// ThisKeywordDemo.java
+class ThisDemo {
+    String name;
+
+    ThisDemo(String name) {
+        // 'this' distinguishes instance variable from parameter
+        this.name = name;
+    }
+
+    public void setName(String name) {
+        this.name = name; // this refers to current instance
+    }
+
+    public void show() {
+        System.out.println("Name = " + this.name);
+    }
+
+    public static void main(String[] args) {
+        ThisDemo td = new ThisDemo("Original");
+        td.show();
+        td.setName("Updated");
+        td.show();
+    }
+}</code></pre>
+            </div>
+            <h2>8. Final Method - Shape</h2>
+            <p>Design Shape class where draw() is declared as final method.</p>
+            <div class="code-container">
+                <div class="code-header"><span class="code-filename">FinalMethodDemo.java</span><button class="copy-btn"
+                        onclick="copyCode(this)">Copy</button></div>
+                <pre><code>// FinalMethodDemo.java
+class Shape {
+    public final void draw() {
+        System.out.println("Drawing shape (final method)");
+    }
+}
+
+class Rectangle extends Shape {
+    // Attempting to override draw() will cause a compile-time error.
+    /*
+    @Override
+    public void draw() {
+        System.out.println("Rectangle draw");
+    }
+    */
+
+    public static void main(String[] args) {
+        Rectangle r = new Rectangle();
+        r.draw();
+    }
+}
+
+/* Expected error message if overriding is attempted:
+   error: draw() in Rectangle cannot override draw() in Shape
+   overridden method is final
+*/</code></pre>
+            </div>
+        </main>
+        <footer>
+            <p><a href="index.html">← Back to Index</a> | Experiment 3 - Inheritance & Keywords | 8 Programs</p>
+        </footer>
+    </div>
+    <button class="back-to-top" onclick="scrollToTop()" id="backToTop">↑</button>
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-container').querySelector('code');
+            const text = codeBlock.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+                alert('Failed to copy code.');
+            });
+        }
+        window.onscroll = function () {
+            const button = document.getElementById('backToTop');
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                button.style.display = 'block';
+            } else {
+                button.style.display = 'none';
+            }
+        };
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+
+</html>

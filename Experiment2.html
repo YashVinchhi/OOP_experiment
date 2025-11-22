@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiment 2 - Class Basics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .breadcrumb {
+            margin-bottom: 20px;
+            font-size: 0.9em;
+        }
+
+        .breadcrumb a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        header {
+            border-bottom: 3px solid #2c3e50;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #2980b9;
+            font-size: 1.5em;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        .code-container {
+            position: relative;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .code-header {
+            background: #2c3e50;
+            color: white;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9em;
+        }
+
+        .code-filename {
+            font-weight: 500;
+        }
+
+        .copy-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: background 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #2980b9;
+        }
+
+        .copy-btn:active {
+            transform: scale(0.95);
+        }
+
+        .copy-btn.copied {
+            background: #27ae60;
+        }
+
+        pre {
+            margin: 0;
+            padding: 20px;
+            overflow-x: auto;
+            background: #282c34;
+            color: #abb2bf;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .keyword {
+            color: #c678dd;
+        }
+
+        .string {
+            color: #98c379;
+        }
+
+        .comment {
+            color: #5c6370;
+            font-style: italic;
+        }
+
+        .function {
+            color: #61afef;
+        }
+
+        .number {
+            color: #d19a66;
+        }
+
+        footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #3498db;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2em;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+
+        .back-to-top:hover {
+            background: #2980b9;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="index.html">← Back to Index</a>
+        </div>
+
+        <header>
+            <h1>Experiment 2 - Class Basics</h1>
+            <p>Fundamental OOP concepts: Classes, Objects, Constructors, and Method Overloading</p>
+        </header>
+
+        <main>
+            <!-- Program 1 -->
+            <h2>1. Student Class with printData Method</h2>
+            <p>Create a class Student with data 'name, city and age' along with the method printData to display the
+                data. Create two objects s1, s2 to declare and access the values.</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="code-filename">Student.java</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <pre><code>// Student.java
+public class Student {
+    String name;
+    String city;
+    int age;
+
+    public Student(String name, String city, int age) {
+        this.name = name;
+        this.city = city;
+        this.age = age;
+    }
+
+    public void printData() {
+        System.out.println("Name : " + name);
+        System.out.println("City : " + city);
+        System.out.println("Age  : " + age);
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        Student s1 = new Student("Alice", "New York", 20);
+        Student s2 = new Student("Bob", "Chicago", 22);
+
+        System.out.println("Student 1:");
+        s1.printData();
+
+        System.out.println("Student 2:");
+        s2.printData();
+    }
+}</code></pre>
+            </div>
+
+            <!-- Program 2 -->
+            <h2>2. Employee Class with Scanner Input</h2>
+            <p>Create a class Employee to display the employee details such as employee id, employee name, salary, age
+                using Scanner class.</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="code-filename">Employee.java</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <pre><code>import java.util.Scanner;
+
+// Employee.java
+class Employee {
+    int id;
+    String name;
+    double salary;
+    int age;
+
+    public Employee(int id, String name, double salary, int age) {
+        this.id = id;
+        this.name = name;
+        this.salary = salary;
+        this.age = age;
+    }
+
+    public void display() {
+        System.out.println("Employee ID   : " + id);
+        System.out.println("Employee Name : " + name);
+        System.out.println("Salary        : " + salary);
+        System.out.println("Age           : " + age);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter employee id: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+        System.out.print("Enter employee name: ");
+        String name = sc.nextLine();
+        System.out.print("Enter salary: ");
+        double salary = sc.nextDouble();
+        System.out.print("Enter age: ");
+        int age = sc.nextInt();
+
+        Employee emp = new Employee(id, name, salary, age);
+        System.out.println("\nEmployee Details:");
+        emp.display();
+        sc.close();
+    }
+}</code></pre>
+            </div>
+
+            <!-- Program 3 -->
+            <h2>3. Bank Account Class</h2>
+            <p>Design a class to represent a bank account with account number, name of depositor, type of account, and
+                balance amount. Implement deposit, withdraw, and display methods.</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="code-filename">BankAccount.java</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <pre><code>import java.util.Scanner;
+
+// BankAccount.java
+class BankAccount {
+    private String accountNumber;
+    private String depositorName;
+    private String accountType;
+    private double balance;
+
+    public BankAccount(String accountNumber, String depositorName, String accountType, double initialBalance) {
+        this.accountNumber = accountNumber;
+        this.depositorName = depositorName;
+        this.accountType = accountType;
+        this.balance = initialBalance;
+    }
+
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.printf("Deposited: %.2f, New balance: %.2f\n", amount, balance);
+        } else {
+            System.out.println("Deposit amount must be positive.");
+        }
+    }
+
+    public void withdraw(double amount) {
+        if (amount <= 0) {
+            System.out.println("Withdrawal amount must be positive.");
+            return;
+        }
+        if (amount > balance) {
+            System.out.println("Insufficient balance. Withdrawal failed.");
+        } else {
+            balance -= amount;
+            System.out.printf("Withdrawn: %.2f, Remaining balance: %.2f\n", amount, balance);
+        }
+    }
+
+    public void display() {
+        System.out.println("Account Number : " + accountNumber);
+        System.out.println("Depositor Name : " + depositorName);
+        System.out.println("Account Type   : " + accountType);
+        System.out.printf("Balance        : %.2f\n", balance);
+    }
+
+    public static void main(String[] args) {
+        BankAccount acct = new BankAccount("A12345", "Charlie", "Savings", 1000.00);
+        System.out.println("Initial details:");
+        acct.display();
+        acct.deposit(250.75);
+        acct.withdraw(100.00);
+        acct.withdraw(2000.00); // should show insufficient
+    }
+}</code></pre>
+            </div>
+
+            <!-- Program 4 -->
+            <h2>4. Method Overloading - Area Calculation</h2>
+            <p>Find area of Square, Rectangle and Circle using Method Overloading.</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="code-filename">AreaOverload.java</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <pre><code>// AreaOverload.java
+class Area {
+    // Square: one double parameter
+    public double area(double side) {
+        return side * side;
+    }
+
+    // Rectangle: two double parameters
+    public double area(double length, double breadth) {
+        return length * breadth;
+    }
+
+    // Circle: overloaded method that takes radius and boolean flag
+    public double area(double radius, boolean isCircle) {
+        if (isCircle) {
+            return Math.PI * radius * radius;
+        }
+        // fallback to square if boolean is false
+        return area(radius);
+    }
+}
+
+public class AreaOverload {
+    public static void main(String[] args) {
+        Area a = new Area();
+        System.out.printf("Area of square (side=4): %.2f\n", a.area(4.0));
+        System.out.printf("Area of rectangle (3x5): %.2f\n", a.area(3.0, 5.0));
+        System.out.printf("Area of circle (r=2): %.2f\n", a.area(2.0, true));
+    }
+}</code></pre>
+            </div>
+
+            <!-- Program 5 -->
+            <h2>5. Box Volume Calculation</h2>
+            <p>Create a class Box with necessary members for calculating volume of Box and display it.</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="code-filename">Box.java</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <pre><code>// Box.java
+class Box {
+    double length;
+    double width;
+    double height;
+
+    public Box(double length, double width, double height) {
+        this.length = length;
+        this.width = width;
+        this.height = height;
+    }
+
+    public double Volume() {
+        return length * width * height;
+    }
+
+    public void displayVolume() {
+        System.out.printf("Box volume: %.2f\n", Volume());
+    }
+
+    public static void main(String[] args) {
+        Box b = new Box(2.5, 3.0, 4.0);
+        b.displayVolume();
+    }
+}</code></pre>
+            </div>
+
+            <!-- Program 6 -->
+            <h2>6. Person Class with Private Members</h2>
+            <p>Create a class Person with data members like age, name, address, mobile number declared as private along
+                with methods to take input and display details.</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="code-filename">Person.java</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <pre><code>import java.util.Scanner;
+
+// Person.java
+class Person {
+    private int age;
+    private String name;
+    private String address;
+    private String mobileNumber;
+
+    public void getinput() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter name: ");
+        this.name = sc.nextLine();
+        System.out.print("Enter age: ");
+        this.age = Integer.parseInt(sc.nextLine());
+        System.out.print("Enter address: ");
+        this.address = sc.nextLine();
+        System.out.print("Enter mobile number: ");
+        this.mobileNumber = sc.nextLine();
+    }
+
+    public void show() {
+        System.out.println("Name         : " + name);
+        System.out.println("Age          : " + age);
+        System.out.println("Address      : " + address);
+        System.out.println("Mobile No.   : " + mobileNumber);
+    }
+
+    public static void main(String[] args) {
+        Person p = new Person();
+        p.getinput();
+        System.out.println();
+        p.show();
+    }
+}</code></pre>
+            </div>
+
+            <!-- Program 7 -->
+            <h2>7. Highest Salary Comparison</h2>
+            <p>Compare two employees and display the one with highest salary.</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="code-filename">HighestSalary.java</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <pre><code>import java.util.Scanner;
+
+// HighestSalary.java
+class EmployeeShort {
+    int id;
+    String name;
+    double salary;
+
+    public EmployeeShort(int id, String name, double salary) {
+        this.id = id;
+        this.name = name;
+        this.salary = salary;
+    }
+
+    public void display() {
+        System.out.println("ID: " + id + ", Name: " + name + ", Salary: " + salary);
+    }
+}
+
+public class HighestSalary {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter details for employee 1:");
+        System.out.print("ID: ");
+        int id1 = sc.nextInt();
+        sc.nextLine();
+        System.out.print("Name: ");
+        String name1 = sc.nextLine();
+        System.out.print("Salary: ");
+        double sal1 = sc.nextDouble();
+
+        sc.nextLine();
+        System.out.println("\nEnter details for employee 2:");
+        System.out.print("ID: ");
+        int id2 = sc.nextInt();
+        sc.nextLine();
+        System.out.print("Name: ");
+        String name2 = sc.nextLine();
+        System.out.print("Salary: ");
+        double sal2 = sc.nextDouble();
+
+        EmployeeShort e1 = new EmployeeShort(id1, name1, sal1);
+        EmployeeShort e2 = new EmployeeShort(id2, name2, sal2);
+
+        System.out.println("\nEmployee with highest salary:");
+        if (e1.salary >= e2.salary) {
+            e1.display();
+        } else {
+            e2.display();
+        }
+        sc.close();
+    }
+}</code></pre>
+            </div>
+        </main>
+
+        <footer>
+            <p><a href="index.html">← Back to Index</a> | Experiment 2 - Class Basics | 7 Programs</p>
+        </footer>
+    </div>
+
+    <button class="back-to-top" onclick="scrollToTop()" id="backToTop">↑</button>
+
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-container').querySelector('code');
+            const text = codeBlock.textContent;
+
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+                alert('Failed to copy code. Please try selecting and copying manually.');
+            });
+        }
+
+        // Back to top button
+        window.onscroll = function () {
+            const button = document.getElementById('backToTop');
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                button.style.display = 'block';
+            } else {
+                button.style.display = 'none';
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+
+</html>

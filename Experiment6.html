@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiment 6 - File Handling</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background-color: #f5f5f5; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 40px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-radius: 8px; }
+        .breadcrumb { margin-bottom: 20px; font-size:0.9em; }
+        .breadcrumb a { color: #3498db; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        header { border-bottom: 3px solid #2c3e50; padding-bottom: 20px; margin-bottom: 30px; }
+       h1 { color: #2c3e50; font-size: 2.2em; margin-bottom: 10px; }
+        h2 { color: #2980b9; font-size: 1.5em; margin-top: 40px; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #ecf0f1; }
+        .code-container { position: relative; margin: 20px 0; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 6px; overflow: hidden; }
+        .code-header { background: #2c3e50; color: white; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; font-size: 0.9em; }
+        .code-filename { font-weight: 500; }
+        .copy-btn { background: #3498db; color: white; border: none; padding: 5px 15px; border-radius: 4px; cursor: pointer; font-size: 0.85em; transition: background 0.3s; }
+        .copy-btn:hover { background: #2980b9; }
+        .copy-btn.copied { background: #27ae60; }
+        pre { margin: 0; padding: 20px; overflow-x: auto; background: #282c34; color: #abb2bf; font-family: 'Consolas', 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.5; }
+        footer { margin-top: 50px; padding-top: 20px; border-top: 1px solid #ddd; text-align: center; color: #7f8c8d; font-size: 0.9em; }
+        .back-to-top { position: fixed; bottom: 30px; right: 30px; background: #3498db; color: white; width: 50px; height: 50px; border-radius: 50%; border: none; cursor: pointer; font-size: 1.2em; box-shadow: 0 2px 10px rgba(0,0,0,0.2); display: none; }
+        .back-to-top:hover { background: #2980b9; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="breadcrumb"><a href="index.html">← Back to Index</a></div>
+        <header>
+            <h1>Experiment 6 - File Handling</h1>
+        </header>
+        <main>
+            <h2>1. Q-1</h2>
+            <div class="code-container">
+                <div class="code-header"><span class="code-filename">FileQ1.java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                <pre><code>// FileQ1.java
+import java.io.File;
+import java.io.IOException;
+
+public class FileQ1 {
+    public static void main(String[] args) {
+        File f = new File("first.txt");
+        try {
+            boolean created = f.createNewFile();
+            System.out.println("createNewFile(): " + created);
+            System.out.println("getName(): " + f.getName());
+            System.out.println("getAbsolutePath(): " + f.getAbsolutePath());
+            System.out.println("canRead(): " + f.canRead());
+            System.out.println("canWrite(): " + f.canWrite());
+            System.out.println("length(): " + f.length());
+            System.out.println("isFile(): " + f.isFile());
+            System.out.println("isDirectory(): " + f.isDirectory());
+            System.out.println("exists(): " + f.exists());
+        } catch (IOException e) {
+            System.out.println("Error creating file: " + e.getMessage());
+        }
+    }
+}</code></pre>
+            </div>
+            <h2>2. Q-2</h2>
+            <div class="code-container">
+                <div class="code-header"><span class="code-filename">FileQ2_Rename.java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                <pre><code>// FileQ2_Rename.java
+import java.io.File;
+
+public class FileQ2_Rename {
+    public static void main(String[] args) {
+        File original = new File("second.txt");
+        try {
+            if (!original.exists()) original.createNewFile();
+        } catch (Exception e) {
+            System.out.println("Could not create second.txt: " + e.getMessage());
+        }
+
+        File renamed = new File("second_renamed.txt");
+        boolean result = original.renameTo(renamed);
+        System.out.println("renameTo() result: " + result);
+        System.out.println("New name: " + renamed.getName());
+    }
+}</code></pre>
+            </div>
+            <h2>3. Q-3</h2>
+            <div class="code-container">
+                <div class="code-header"><span class="code-filename">FileQ3_Delete.java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                <pre><code>// FileQ3_Delete.java
+import java.io.File;
+
+public class FileQ3_Delete {
+    public static void main(String[] args) {
+        File file = new File("second_renamed.txt");
+        if (!file.exists()) {
+            System.out.println("File does not exist - creating for demo.");
+            try { file.createNewFile(); } catch (Exception e) { /* ignore */ }
+        }
+
+        boolean deleted = file.delete();
+        System.out.println("delete() result: " + deleted);
+    }
+}</code></pre>
+            </div>
+            <h2>4. Q-4</h2>
+            <div class="code-container">
+                <div class="code-header"><span class="code-filename">Program4.java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                <pre><code>import java.io.File;
+
+class File
+{
+    public static void main(String args[])
+    {
+        try
+        {
+            File f = new File("D\File\");
+        }
+        catch()
+        {
+            System.out.println(i);
+        }
+    }
+}</code></pre>
+            </div>
+            <h2>5. Q-5</h2>
+            <div class="code-container">
+                <div class="code-header"><span class="code-filename">FileExample_Corrected.java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                <pre><code>// FileExample_Corrected.java
+import java.io.File;
+import java.io.IOException;
+
+public class FileExample_Corrected {
+    public static void main(String args[]) {
+        try {
+            // use double backslashes for Windows paths
+            File f = new File("D:\\RKU\\First.java");
+            boolean created = false;
+            try {
+                // createNewFile will return true if file did not exist and was created
+                created = f.createNewFile();
+            } catch (IOException ioe) {
+                // directory may not exist; this demo just reports the exception
+            }
+
+            System.out.println("File Created:" + created);
+            System.out.println("File name is:" + f.getName());
+            System.out.println("File path is " + f.getAbsolutePath());
+            System.out.println("File read operation:" + f.canRead());
+            System.out.println("File write operation:" + f.canWrite());
+            System.out.println("File length in bytes:" + f.length());
+            System.out.println("is File:" + f.isFile());
+            System.out.println("is directory:" + f.isDirectory());
+            System.out.println("is exists:" + f.exists());
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+}</code></pre>
+            </div>
+            <h2>6. Q-6</h2>
+            <div class="code-container">
+                <div class="code-header"><span class="code-filename">FileWriterExample.java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                <pre><code>// FileWriterExample.java
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class FileWriterExample {
+    public static void main(String[] args) {
+        try (FileWriter fw = new FileWriter("fw_demo.txt")) {
+            fw.write("This is a sample line written by FileWriter.\n");
+            fw.write("Second line.\n");
+            System.out.println("FileWriter: Write successful.");
+        } catch (IOException e) {
+            System.out.println("FileWriter error: " + e.getMessage());
+        }
+    }
+}</code></pre>
+            </div>
+
+        </main>
+        <footer><p><a href="index.html">← Back to Index</a> | Experiment 6 - File Handling</p></footer>
+    </div>
+    <button class="back-to-top" onclick="scrollToTop()" id="backToTop">↑</button>
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-container').querySelector('code');
+            const text = codeBlock.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                alert('Failed to copy code.');
+            });
+        }
+        window.onscroll = function() {
+            const button = document.getElementById('backToTop');
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                button.style.display = 'block';
+            } else {
+                button.style.display = 'none';
+            }
+        };
+        function scrollToTop() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
+</body>
+</html>
