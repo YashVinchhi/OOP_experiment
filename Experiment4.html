@@ -1,42 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Experiment 4 - Interfaces & Abstract Classes</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background-color: #f5f5f5; padding: 20px; }
-        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 40px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-radius: 8px; }
-        .breadcrumb { margin-bottom: 20px; font-size:0.9em; }
-        .breadcrumb a { color: #3498db; text-decoration: none; }
-        .breadcrumb a:hover { text-decoration: underline; }
-        header { border-bottom: 3px solid #2c3e50; padding-bottom: 20px; margin-bottom: 30px; }
-       h1 { color: #2c3e50; font-size: 2.2em; margin-bottom: 10px; }
-        h2 { color: #2980b9; font-size: 1.5em; margin-top: 40px; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #ecf0f1; }
-        .code-container { position: relative; margin: 20px 0; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 6px; overflow: hidden; }
-        .code-header { background: #2c3e50; color: white; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; font-size: 0.9em; }
-        .code-filename { font-weight: 500; }
-        .copy-btn { background: #3498db; color: white; border: none; padding: 5px 15px; border-radius: 4px; cursor: pointer; font-size: 0.85em; transition: background 0.3s; }
-        .copy-btn:hover { background: #2980b9; }
-        .copy-btn.copied { background: #27ae60; }
-        pre { margin: 0; padding: 20px; overflow-x: auto; background: #282c34; color: #abb2bf; font-family: 'Consolas', 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.5; }
-        footer { margin-top: 50px; padding-top: 20px; border-top: 1px solid #ddd; text-align: center; color: #7f8c8d; font-size: 0.9em; }
-        .back-to-top { position: fixed; bottom: 30px; right: 30px; background: #3498db; color: white; width: 50px; height: 50px; border-radius: 50%; border: none; cursor: pointer; font-size: 1.2em; box-shadow: 0 2px 10px rgba(0,0,0,0.2); display: none; }
-        .back-to-top:hover { background: #2980b9; }
-    </style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Experiment 4 - Interfaces & Abstract Classes</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			line-height: 1.6;
+			color: #333;
+			background-color: #f5f5f5;
+			padding: 20px;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 0 auto;
+			background: white;
+			padding: 40px;
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+			border-radius: 8px;
+		}
+
+		.breadcrumb {
+			margin-bottom: 20px;
+			font-size: 0.9em;
+		}
+
+		.breadcrumb a {
+			color: #3498db;
+			text-decoration: none;
+		}
+
+		.breadcrumb a:hover {
+			text-decoration: underline;
+		}
+
+		header {
+			border-bottom: 3px solid #2c3e50;
+			padding-bottom: 20px;
+			margin-bottom: 30px;
+		}
+
+		h1 {
+			color: #2c3e50;
+			font-size: 2.2em;
+			margin-bottom: 10px;
+		}
+
+		h2 {
+			color: #2980b9;
+			font-size: 1.5em;
+			margin-top: 40px;
+			margin-bottom: 15px;
+			padding-bottom: 10px;
+			border-bottom: 2px solid #ecf0f1;
+		}
+
+		.code-container {
+			position: relative;
+			margin: 20px 0;
+			background: #f8f9fa;
+			border: 1px solid #dee2e6;
+			border-radius: 6px;
+			overflow: hidden;
+		}
+
+		.code-header {
+			background: #2c3e50;
+			color: white;
+			padding: 10px 15px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			font-size: 0.9em;
+		}
+
+		.code-filename {
+			font-weight: 500;
+		}
+
+		.copy-btn {
+			background: #3498db;
+			color: white;
+			border: none;
+			padding: 5px 15px;
+			border-radius: 4px;
+			cursor: pointer;
+			font-size: 0.85em;
+			transition: background 0.3s;
+		}
+
+		.copy-btn:hover {
+			background: #2980b9;
+		}
+
+		.copy-btn.copied {
+			background: #27ae60;
+		}
+
+		pre {
+			margin: 0;
+			padding: 20px;
+			overflow-x: auto;
+			background: #282c34;
+			color: #abb2bf;
+			font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+			font-size: 0.9em;
+			line-height: 1.5;
+		}
+
+		footer {
+			margin-top: 50px;
+			padding-top: 20px;
+			border-top: 1px solid #ddd;
+			text-align: center;
+			color: #7f8c8d;
+			font-size: 0.9em;
+		}
+
+		.back-to-top {
+			position: fixed;
+			bottom: 30px;
+			right: 30px;
+			background: #3498db;
+			color: white;
+			width: 50px;
+			height: 50px;
+			border-radius: 50%;
+			border: none;
+			cursor: pointer;
+			font-size: 1.2em;
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+			display: none;
+		}
+
+		.back-to-top:hover {
+			background: #2980b9;
+		}
+	</style>
 </head>
+
 <body>
-    <div class="container">
-        <div class="breadcrumb"><a href="index.html">← Back to Index</a></div>
-        <header>
-            <h1>Experiment 4 - Interfaces & Abstract Classes</h1>
-        </header>
-        <main>
-            <h2>1. 1. Interface Shape</h2>
-            <div class="code-container">
-                <div class="code-header"><span class="code-filename">ShapeExample.java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-                <pre><code>// ShapeExample.java
+	<div class="container">
+		<div class="breadcrumb"><a href="index.html">← Back to Index</a></div>
+		<header>
+			<h1>Experiment 4 - Interfaces & Abstract Classes</h1>
+			<p>Mastering Abstraction, Interfaces, and Polymorphism in Java</p>
+		</header>
+		<main>
+			<h2>1. Interface Shape</h2>
+			<p>Create an interface named Shape containing two methods: Area() and Perimeter(). Implement this interface
+				in Triangle and Circle classes.</p>
+			<div class="code-container">
+				<div class="code-header"><span class="code-filename">ShapeExample.java</span><button class="copy-btn"
+						onclick="copyCode(this)">Copy</button></div>
+				<pre><code>// ShapeExample.java
 interface Shape {
 	void Area();
 	void Perimeter();
@@ -78,9 +204,9 @@ class Circle implements Shape {
 	public void Perimeter() {
 		System.out.printf("Circle perimeter: %.2f\n", 2 * Math.PI * r);
 	}
+}
 
-// Quick runner for Shape
-class ShapeExample {
+public class ShapeExample {
 	public static void main(String[] args) {
 		Shape t = new Triangle(3, 4, 5);
 		Shape c = new Circle(2);
@@ -88,16 +214,15 @@ class ShapeExample {
 		c.Area(); c.Perimeter();
 	}
 }</code></pre>
-            </div>
-            <h2>2. 2. Abstract Class Insect</h2>
-            <div class="code-container">
-                <div class="code-header"><span class="code-filename">Program2.java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-                <pre><code>void flystatus();</code></pre>
-            </div>
-            <h2>3. 3. Vehicle Inheritance</h2>
-            <div class="code-container">
-                <div class="code-header"><span class="code-filename">InsectExample.java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-                <pre><code>// InsectExample.java
+			</div>
+
+			<h2>2. Abstract Class Insect</h2>
+			<p>Create an abstract class Insect with an abstract method flystatus(). Implement this in Termite,
+				Grasshopper, and Ant classes.</p>
+			<div class="code-container">
+				<div class="code-header"><span class="code-filename">InsectExample.java</span><button class="copy-btn"
+						onclick="copyCode(this)">Copy</button></div>
+				<pre><code>// InsectExample.java
 abstract class Insect {
 	abstract void flystatus();
 }
@@ -117,17 +242,21 @@ class Ant extends Insect {
 	void flystatus() { System.out.println("Ant cannot fly"); }
 }
 
-class InsectExample {
+public class InsectExample {
 	public static void main(String[] args) {
 		Insect[] arr = { new Termite(), new Grasshopper(), new Ant() };
 		for (Insect ins : arr) ins.flystatus();
 	}
 }</code></pre>
-            </div>
-            <h2>4. 4. Interface Vegetable</h2>
-            <div class="code-container">
-                <div class="code-header"><span class="code-filename">VehicleExample.java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-                <pre><code>// VehicleExample.java
+			</div>
+
+			<h2>3. Vehicle Inheritance</h2>
+			<p>Create a base class Vehicle and derive two_wheeler, three_wheeler, and four_wheeler classes. Display
+				properties such as speed and fuel type.</p>
+			<div class="code-container">
+				<div class="code-header"><span class="code-filename">VehicleExample.java</span><button class="copy-btn"
+						onclick="copyCode(this)">Copy</button></div>
+				<pre><code>// VehicleExample.java
 class Vehicle {
 	String fuelType;
 	double maxSpeed;
@@ -158,7 +287,7 @@ class four_wheeler extends Vehicle {
 	public void show() { System.out.println("Four wheeler"); display(); }
 }
 
-class VehicleExample {
+public class VehicleExample {
 	public static void main(String[] args) {
 		two_wheeler t = new two_wheeler("Petrol", 120);
 		three_wheeler th = new three_wheeler("Diesel", 80);
@@ -169,11 +298,15 @@ class VehicleExample {
 		f.show();
 	}
 }</code></pre>
-            </div>
-            <h2>5. 5. Interface College</h2>
-            <div class="code-container">
-                <div class="code-header"><span class="code-filename">VegetableExample.java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-                <pre><code>// VegetableExample.java
+			</div>
+
+			<h2>4. Interface Vegetable</h2>
+			<p>Create an interface Vegetable with methods color() and grow(). Implement these in Spinach, Potato, Onion,
+				and Tomato classes.</p>
+			<div class="code-container">
+				<div class="code-header"><span class="code-filename">VegetableExample.java</span><button
+						class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+				<pre><code>// VegetableExample.java
 interface Vegetable {
 	void color();
 	void grow();
@@ -199,22 +332,21 @@ class Tomato implements Vegetable {
 	public void grow()  { System.out.println("Tomato grows above ground"); }
 }
 
-class VegetableExample {
+public class VegetableExample {
 	public static void main(String[] args) {
 		Vegetable[] vegs = { new Spinach(), new Potato(), new Onion(), new Tomato() };
 		for (Vegetable v : vegs) { v.color(); v.grow(); }
 	}
 }</code></pre>
-            </div>
-            <h2>6. 6. Packages in Java</h2>
-            <div class="code-container">
-                <div class="code-header"><span class="code-filename">Program6.java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-                <pre><code>void Showdetails();</code></pre>
-            </div>
-            <h2>7. 7. Java Math Class Functions</h2>
-            <div class="code-container">
-                <div class="code-header"><span class="code-filename">CollegeExample.java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-                <pre><code>// CollegeExample.java
+			</div>
+
+			<h2>5. Interface College</h2>
+			<p>Create an interface College with method Showdetails(). Implement this in Department and Student classes
+				with user input.</p>
+			<div class="code-container">
+				<div class="code-header"><span class="code-filename">CollegeExample.java</span><button class="copy-btn"
+						onclick="copyCode(this)">Copy</button></div>
+				<pre><code>// CollegeExample.java
 import java.util.Scanner;
 
 interface College {
@@ -237,13 +369,13 @@ class Department implements College {
 	}
 }
 
-class Student implements College {
+class StudentInfo implements College {
 	private String collegeName;
 	private String studentName;
 	private String sem;
 	private String branch;
 
-	public Student(String collegeName, String studentName, String sem, String branch) {
+	public StudentInfo(String collegeName, String studentName, String sem, String branch) {
 		this.collegeName = collegeName;
 		this.studentName = studentName;
 		this.sem = sem;
@@ -257,7 +389,9 @@ class Student implements College {
 		System.out.println("Semester: " + sem);
 		System.out.println("Branch: " + branch);
 	}
+}
 
+public class CollegeExample {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Enter College Name: ");
@@ -269,7 +403,7 @@ class Student implements College {
 		System.out.print("Enter Branch: ");
 		String branch = sc.nextLine();
 
-		College c1 = new Student(col, name, sem, branch);
+		College c1 = new StudentInfo(col, name, sem, branch);
 		System.out.println("\nDetails using College reference (Student):");
 		c1.Showdetails();
 
@@ -279,39 +413,93 @@ class Student implements College {
 		sc.close();
 	}
 }</code></pre>
-            </div>
+			</div>
 
-        </main>
-        <footer><p><a href="index.html">← Back to Index</a> | Experiment 4 - Interfaces & Abstract Classes</p></footer>
-    </div>
-    <button class="back-to-top" onclick="scrollToTop()" id="backToTop">↑</button>
-    <script>
-        function copyCode(button) {
-            const codeBlock = button.closest('.code-container').querySelector('code');
-            const text = codeBlock.textContent;
-            navigator.clipboard.writeText(text).then(() => {
-                const originalText = button.textContent;
-                button.textContent = 'Copied!';
-                button.classList.add('copied');
-                setTimeout(() => {
-                    button.textContent = originalText;
-                    button.classList.remove('copied');
-                }, 2000);
-            }).catch(err => {
-                alert('Failed to copy code.');
-            });
-        }
-        window.onscroll = function() {
-            const button = document.getElementById('backToTop');
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                button.style.display = 'block';
-            } else {
-                button.style.display = 'none';
-            }
-        };
-        function scrollToTop() {
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        }
-    </script>
+			<h2>6. Packages in Java</h2>
+			<p>Demonstrate package creation with class A in mypackage and accessing it from class B.</p>
+			<div class="code-container">
+				<div class="code-header"><span class="code-filename">PackageA.java</span><button class="copy-btn"
+						onclick="copyCode(this)">Copy</button></div>
+				<pre><code>// Packages example (A.java and B.java) - shown inline for clarity
+
+/*
+File: A.java
+package mypackage;
+public class A {
+	public static void displayA() {
+		System.out.println("Display A from mypackage.A");
+	}
+}
+
+File: B.java
+import mypackage.A;
+public class B {
+	public static void main(String[] args) {
+		A.displayA();
+	}
+}
+*/
+
+// Note: Save the above two classes in separate files with package declaration for A.java</code></pre>
+			</div>
+
+			<h2>7. Java Math Class Functions</h2>
+			<p>Implement built-in functions from java.lang.Math: random(), min(), max(), sqrt(), pow(), abs(), round().
+			</p>
+			<div class="code-container">
+				<div class="code-header"><span class="code-filename">MathFunctionsExample.java</span><button
+						class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+				<pre><code>// MathFunctionsExample.java
+public class MathFunctionsExample {
+	public static void main(String[] args) {
+		double r = Math.random();
+		System.out.println("random() -> " + r);
+
+		System.out.println("min(3,7) -> " + Math.min(3, 7));
+		System.out.println("max(3,7) -> " + Math.max(3, 7));
+
+		System.out.println("sqrt(16) -> " + Math.sqrt(16));
+		System.out.println("pow(2,5) -> " + Math.pow(2, 5));
+
+		System.out.println("abs(-10) -> " + Math.abs(-10));
+		System.out.println("round(3.6) -> " + Math.round(3.6));
+	}
+}</code></pre>
+			</div>
+		</main>
+		<footer>
+			<p><a href="index.html">← Back to Index</a> | Experiment 4 - Interfaces & Abstract Classes | 7 Programs</p>
+		</footer>
+	</div>
+	<button class="back-to-top" onclick="scrollToTop()" id="backToTop">↑</button>
+	<script>
+		function copyCode(button) {
+			const codeBlock = button.closest('.code-container').querySelector('code');
+			const text = codeBlock.textContent;
+			navigator.clipboard.writeText(text).then(() => {
+				const originalText = button.textContent;
+				button.textContent = 'Copied!';
+				button.classList.add('copied');
+				setTimeout(() => {
+					button.textContent = originalText;
+					button.classList.remove('copied');
+				}, 2000);
+			}).catch(err => {
+				alert('Failed to copy code.');
+			});
+		}
+		window.onscroll = function () {
+			const button = document.getElementById('backToTop');
+			if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+				button.style.display = 'block';
+			} else {
+				button.style.display = 'none';
+			}
+		};
+		function scrollToTop() {
+			window.scrollTo({ top: 0, behavior: 'smooth' });
+		}
+	</script>
 </body>
+
 </html>
